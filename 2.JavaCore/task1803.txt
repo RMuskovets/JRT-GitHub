@@ -1,0 +1,21 @@
+public static void main(String[] args) throws Exception {
+        Scanner sc = new Scanner(System.in);
+        FileInputStream fis = new FileInputStream(sc.nextLine());
+        sc.close();
+        Map<Byte, Integer> freq = new HashMap<>();
+        List<Byte> list = new ArrayList<>();
+        int c;
+        while ((c = fis.read()) != -1) list.add((byte)c);
+        fis.close();
+        for (byte b : list) {
+            int frq = Collections.frequency(list, b);
+            freq.put(b, frq);}
+        int max = (Integer) freq.values().stream().sorted(Collections.reverseOrder(Integer::compare)).toArray()[0];
+        List<Byte> maxBytes = new ArrayList<>();
+        for (Map.Entry<Byte, Integer> entry : freq.entrySet())
+            if (entry.getValue().equals(max)) maxBytes.add(entry.getKey());
+        Byte[] array = maxBytes.toArray(new Byte[maxBytes.size()]);
+        String[] x = new String[array.length];
+        for (int a = 0; a < array.length; a++) x[a] = String.valueOf(array[a]);
+        System.out.println(String.join(" ", x));
+    }
